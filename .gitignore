@@ -18,3 +18,5 @@ runs/
 .idea/
 .env-erl/
 /data/telemanom/
+/data/processed/
+/data/json/

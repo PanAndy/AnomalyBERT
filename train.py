@@ -55,7 +55,8 @@ def main(options):
     data_seq_len = n_features * options.patch_size
 
     # Define model.
-    device = torch.device('cuda:{}'.format(options.gpu_id))
+    # device = torch.device('cuda:{}'.format(options.gpu_id))
+    device = "cpu"
     model = get_anomaly_transformer(input_d_data=d_data,
                                     output_d_data=1 if options.loss=='bce' else d_data,
                                     patch_size=options.patch_size,

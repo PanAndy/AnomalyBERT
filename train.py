@@ -52,8 +52,12 @@ def main(options):
             divisions = divisions.values()
     
     n_features = options.n_features
+
+    # 一个window内有多少个data point (data_seq_len)
+    # 这里data point维度的
     data_seq_len = n_features * options.patch_size
 
+    # max_seq_len 是transformer视角的，是token维度的，一 token = patch_size data point
     # Define model.
     # device = torch.device('cuda:{}'.format(options.gpu_id))
     device = "cpu"
@@ -68,7 +72,8 @@ def main(options):
                                     transformer_n_layer=options.n_layer,
                                     transformer_n_head=8,
                                     dropout=options.dropout).to(device)
-    
+    total_params = sum(p.numel() for p in model.parameters())
+    print(f'Total Params: {total_params}')
     # Load a checkpoint if exists.
     if options.checkpoint != None:
         model.load_state_dict(torch.load(options.checkpoint, map_location='cpu'))
@@ -432,8 +437,8 @@ if __name__ == "__main__":
     parser.add_argument("--replacing_data", default=None, type=str, help='external data for soft replacement; None(default)/SMAP/MSL/SMD/SWaT/WADI')
     
     parser.add_argument("--batch_size", default=16, type=int)
-    parser.add_argument("--n_features", default=512, type=int, help='number of features for a window')
-    parser.add_argument("--patch_size", default=4, type=int, help='number of data points in a patch')
+    parser.add_argument("--n_features", default=512, type=int, help='number of features for a window') # 一个window内有几个token，一个token会计算一个feature
+    parser.add_argument("--patch_size", default=4, type=int, help='number of data points in a patch') # 一个token由patch_size=4个point构成
     parser.add_argument("--d_embed", default=512, type=int, help='embedding dimension of feature')
     parser.add_argument("--n_layer", default=6, type=int, help='number of transformer layers')
     parser.add_argument("--dropout", default=0.1, type=float)

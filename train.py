@@ -72,6 +72,7 @@ def main(options):
                                     transformer_n_layer=options.n_layer,
                                     transformer_n_head=8,
                                     dropout=options.dropout).to(device)
+    print(model)
     total_params = sum(p.numel() for p in model.parameters())
     print(f'Total Params: {total_params}')
     # Load a checkpoint if exists.

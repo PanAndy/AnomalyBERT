@@ -438,7 +438,7 @@ if __name__ == "__main__":
     parser.add_argument("--replacing_data", default=None, type=str, help='external data for soft replacement; None(default)/SMAP/MSL/SMD/SWaT/WADI')
     
     parser.add_argument("--batch_size", default=16, type=int)
-    parser.add_argument("--n_features", default=512, type=int, help='number of features for a window') # 一个window内有几个token，一个token会计算一个feature
+    parser.add_argument("--n_features", default=1024, type=int, help='number of features for a window') # 一个window内有几个token，一个token会计算一个feature
     parser.add_argument("--patch_size", default=4, type=int, help='number of data points in a patch') # 一个token由patch_size=4个point构成
     parser.add_argument("--d_embed", default=512, type=int, help='embedding dimension of feature')
     parser.add_argument("--n_layer", default=6, type=int, help='number of transformer layers')
